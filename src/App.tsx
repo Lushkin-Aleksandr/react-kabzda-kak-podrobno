@@ -8,16 +8,12 @@ import {UncontrolledRating} from "./components/UncontrolledRating/UncontrolledRa
 
 function App() {
 
-    const [isOn, setIsOn] = useState<boolean>(false);
 
-    const changeIsOn = (value: boolean) => {
-        setIsOn(value);
-    }
 
     return (
         <div className="App">
             <PageTitle title='QWERTY'/>
-            <OnOff isOn={isOn} setIsOn={changeIsOn}/>
+            <OnOff />
             <UncontrolledAccordion title={'Uncontrolled 1'} />
             <UncontrolledAccordion title={'Uncontrolled 2'} />
             <UncontrolledRating/>

@@ -1,20 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 type OnOffPropsType = {
-    isOn: boolean
-    setIsOn: (value: boolean) => void
+
 }
 
-const OnOff = ({isOn, setIsOn}:OnOffPropsType) => {
+const OnOff = ({}:OnOffPropsType) => {
+    const [isOn, setIsOn] = useState<boolean>(false);
 
-    const onClickHandler = (value: boolean) => {
-        setIsOn(value);
+    const changeIsOn = () => {
+        setIsOn(!isOn);
     }
 
     return (
         <div className='on-off'>
-            <div onClick={() => onClickHandler(true)} className={'on-off__left' + (isOn ? ' active' : '')}>On</div>
-            <div onClick={() => onClickHandler(false)} className={'on-off__right' + (!isOn ? ' active' : '')}>Off</div>
+            <div onClick={changeIsOn} className={'on-off__left' + (isOn ? ' active' : '')}>On</div>
+            <div onClick={changeIsOn} className={'on-off__right' + (!isOn ? ' active' : '')}>Off</div>
             <div className={"indicator" + (isOn ? ' active' : '')}></div>
         </div>
     );
