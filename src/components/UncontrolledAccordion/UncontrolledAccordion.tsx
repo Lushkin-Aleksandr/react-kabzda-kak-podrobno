@@ -8,14 +8,13 @@ function UncontrolledAccordion(props: UncontrolledAccordionPropsType) {
 
     const [collapsed, setCollapsed] = useState<boolean>(true);
 
-    const toggleCollapse = () => {
+    const toggleCollapsed = () => {
         setCollapsed(!collapsed)
     }
 
     return (
         <div>
-            <UncontrolledAccordionTitle title={props.title}/>
-            <button onClick={toggleCollapse}>{collapsed ? 'Uncollapse' : 'Collapse'}{' accordion'}</button>
+            <UncontrolledAccordionTitle title={props.title} toggleCollapsed={toggleCollapsed}/>
             {!collapsed && <UncontrolledAccordionBody />}
         </div>
     )
@@ -23,12 +22,13 @@ function UncontrolledAccordion(props: UncontrolledAccordionPropsType) {
 
 type UncontrolledAccordionTitlePropsType = {
     title: string
+    toggleCollapsed: () => void
 }
 
 function UncontrolledAccordionTitle(props: UncontrolledAccordionTitlePropsType) {
 
     return (
-        <div>
+        <div className='uncontrolledAccordionTitle' onClick={props.toggleCollapsed}>
             <h3>{props.title}</h3>
         </div>
     )
