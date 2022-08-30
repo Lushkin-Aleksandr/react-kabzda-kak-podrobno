@@ -4,6 +4,7 @@ import Accordion from "./components/Accordion/Accordion";
 import {Rating} from "./components/Rating/Rating";
 import OnOff from "./components/OnOff/OnOff";
 import UncontrolledAccordion from "./components/UncontrolledAccordion/UncontrolledAccordion";
+import {UncontrolledRating} from "./components/UncontrolledRating/UncontrolledRating";
 
 function App() {
 
@@ -19,11 +20,8 @@ function App() {
             <OnOff isOn={isOn} setIsOn={changeIsOn}/>
             <UncontrolledAccordion title={'Uncontrolled 1'} />
             <UncontrolledAccordion title={'Uncontrolled 2'} />
-            <Rating value={1}/>
-            {/*<Rating value={2}/>*/}
-            {/*<Rating value={3}/>*/}
-            {/*<Rating value={4}/>*/}
-            {/*<Rating value={5}/>*/}
+            <UncontrolledRating/>
+            {/*<Rating value={1}/>*/}
             {/*<Accordion title='Menu' collapsed={false}/>*/}
             {/*<Accordion title='Users' collapsed={true}/>*/}
 
