@@ -3,6 +3,7 @@ import './App.css';
 import Accordion from "./components/Accordion/Accordion";
 import {Rating} from "./components/Rating/Rating";
 import OnOff from "./components/OnOff/OnOff";
+import UncontrolledAccordion from "./components/UncontrolledAccordion/UncontrolledAccordion";
 
 function App() {
 
@@ -15,7 +16,10 @@ function App() {
     return (
         <div className="App">
             <PageTitle title='QWERTY'/>
-            {/*<Rating value={1}/>*/}
+            <OnOff isOn={isOn} setIsOn={changeIsOn}/>
+            <UncontrolledAccordion title={'Uncontrolled 1'} />
+            <UncontrolledAccordion title={'Uncontrolled 2'} />
+            <Rating value={1}/>
             {/*<Rating value={2}/>*/}
             {/*<Rating value={3}/>*/}
             {/*<Rating value={4}/>*/}
@@ -23,7 +27,7 @@ function App() {
             {/*<Accordion title='Menu' collapsed={false}/>*/}
             {/*<Accordion title='Users' collapsed={true}/>*/}
 
-            <OnOff isOn={isOn} setIsOn={changeIsOn}/>
+
         </div>
     );
 }
