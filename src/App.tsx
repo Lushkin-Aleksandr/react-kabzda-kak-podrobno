@@ -16,7 +16,7 @@ function App() {
     return (
         <div className="App">
             <PageTitle title='QWERTY'/>
-            <OnOff />
+            <OnOff changeIsOn={setIsOn} /> {isOn.toString()}
             <ControlledOnOff isOn={isOn} changeIsOn={value => setIsOn(value)}/>
             <UncontrolledAccordion title={'Uncontrolled 1'} />
             <UncontrolledAccordion title={'Uncontrolled 2'} />

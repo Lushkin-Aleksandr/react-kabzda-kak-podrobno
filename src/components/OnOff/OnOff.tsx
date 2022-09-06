@@ -1,14 +1,16 @@
 import React, {useState} from 'react';
 
 type OnOffPropsType = {
-
+    changeIsOn: (value: boolean) => void
 }
 
-const OnOff = ({}:OnOffPropsType) => {
+
+const OnOff = (props:OnOffPropsType) => {
     const [isOn, setIsOn] = useState<boolean>(false);
 
     const changeIsOn = (value: boolean) => {
         setIsOn(value);
+        props.changeIsOn(value)
     }
 
     return (
