@@ -19,7 +19,6 @@ export const UncontrolledInputWithState = () => {
     return (
         <>
             <input
-                value={inputValue}
                 onChange={onChange}/> - {inputValue}
         </>
     )
