@@ -1,9 +1,16 @@
-import React from "react";
+import React, {MouseEvent} from "react";
+
+export type AccordionItemType = {
+    title: string
+    value: string
+}
 
 type AccordionPropsType = {
     title: string,
     collapsed?: boolean
     changeCollapsed: () => void
+    items: AccordionItemType[]
+    itemClickCallback: (value: string) => void
 }
 
 function Accordion(props: AccordionPropsType) {
@@ -11,7 +18,7 @@ function Accordion(props: AccordionPropsType) {
     return (
         <div>
             <AccordionTitle onClick={props.changeCollapsed} title={props.title}/>
-            {!props.collapsed && <AccordionBody/>}
+            {!props.collapsed && <AccordionBody itemClickCallback={props.itemClickCallback} items={props.items}/>}
         </div>
     )
 }
@@ -28,16 +35,23 @@ function AccordionTitle(props: AccordionTitlePropsType) {
     )
 }
 
-type AccordionBodyPropsType = {}
+type AccordionBodyPropsType = {
+    items: AccordionItemType[]
+    itemClickCallback: (value: string) => void
+}
 
 function AccordionBody(props: AccordionBodyPropsType) {
 
     return (
         <div>
             <ul>
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
+                {props.items.map((item, index) => {
+                    const onClick = () => {
+                        props.itemClickCallback(item.value);
+                    }
+
+                    return <li key={index} onClick={onClick}>{item.title}</li>
+                })}
             </ul>
         </div>
     )
