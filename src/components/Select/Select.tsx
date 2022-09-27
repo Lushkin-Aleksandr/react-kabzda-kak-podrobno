@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {RefObject, useEffect, useRef, useState} from 'react';
 import styles from './Select.module.css'
 
 type ItemType = {
     title: string
-    value: any
+    value?: any
 }
 
 type SelectPropsType = {
@@ -12,11 +12,17 @@ type SelectPropsType = {
     items: ItemType[]
 }
 
-const Select:React.FC<SelectPropsType> = (props) => {
+const Select: React.FC<SelectPropsType> = (props) => {
     const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        selectBodyRef.current?.focus()
+    }, [isOpen])
+    const selectBodyRef = useRef() as RefObject<HTMLDivElement>;
 
     const openOptions = () => {
         setIsOpen(true)
+
     }
 
     const closeOptions = () => {
@@ -29,13 +35,14 @@ const Select:React.FC<SelectPropsType> = (props) => {
     }
 
 
-
     return (
         <div className={styles.select}>
             <div className={styles.selectedValue} onClick={openOptions}>
                 {props.items.find(i => i.value === props.value)?.title}
             </div>
             {isOpen && <div
+                tabIndex={0}
+                ref={selectBodyRef}
                 className={styles.selectItems}
                 onBlur={closeOptions}>
                 {props.items.map((item, index) => {
