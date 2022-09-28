@@ -1,5 +1,6 @@
-import React, {RefObject, useEffect, useRef, useState} from 'react';
+import React, {RefObject, useEffect, useRef, useState, KeyboardEvent, useReducer} from 'react';
 import styles from './Select.module.css'
+import {CLOSE_OPTIONS, OPEN_OPTIONS, selectReducer} from "./selectReducer";
 
 type ItemType = {
     title: string
@@ -12,21 +13,22 @@ type SelectPropsType = {
     items: ItemType[]
 }
 
+
 const Select: React.FC<SelectPropsType> = (props) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [state, dispatch] = useReducer(selectReducer, { isOpen: false })
 
     useEffect(() => {
         selectBodyRef.current?.focus()
-    }, [isOpen])
+    }, [state.isOpen])
     const selectBodyRef = useRef() as RefObject<HTMLDivElement>;
 
     const openOptions = () => {
-        setIsOpen(true)
+        dispatch({type: OPEN_OPTIONS})
 
     }
 
     const closeOptions = () => {
-        setIsOpen(false)
+        dispatch({type: CLOSE_OPTIONS})
     }
 
     const selectValueHandler = (value: any) => {
@@ -34,14 +36,35 @@ const Select: React.FC<SelectPropsType> = (props) => {
         closeOptions();
     }
 
+    const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+        const valuesArr = props.items.map(i => i.value)
+        const nextElementValue = valuesArr.indexOf(props.value) + 1 === valuesArr.length ? valuesArr[0] : valuesArr[valuesArr.indexOf(props.value) + 1];
+        const prevElementValue = valuesArr.indexOf(props.value) - 1 === -1 ? valuesArr[valuesArr.length - 1] : valuesArr[valuesArr.indexOf(props.value) - 1];
+
+        switch (e.key) {
+            case 'ArrowUp':
+                props.onChange(prevElementValue)
+                break;
+            case 'ArrowDown':
+                props.onChange(nextElementValue)
+                break;
+            case 'Enter':
+            case 'Escape':
+                closeOptions();
+                break
+
+        }
+
+    }
 
     return (
         <div className={styles.select}>
             <div className={styles.selectedValue} onClick={openOptions}>
                 {props.items.find(i => i.value === props.value)?.title}
             </div>
-            {isOpen && <div
+            {state.isOpen && <div
                 tabIndex={0}
+                onKeyDown={handleKeyDown}
                 ref={selectBodyRef}
                 className={styles.selectItems}
                 onBlur={closeOptions}>
