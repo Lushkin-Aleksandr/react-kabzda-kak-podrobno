@@ -15,6 +15,7 @@ type SelectPropsType = {
 
 
 const Select: React.FC<SelectPropsType> = (props) => {
+    console.log(props.items[0].title)
     const [state, dispatch] = useReducer(selectReducer, { isOpen: false })
 
     useEffect(() => {
@@ -81,4 +82,4 @@ const Select: React.FC<SelectPropsType> = (props) => {
     );
 };
 
-export default Select;
+export default React.memo(Select);
