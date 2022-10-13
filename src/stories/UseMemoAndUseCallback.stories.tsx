@@ -1,9 +1,9 @@
-import React, {useMemo, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 import Select from "../components/Select/Select";
 
 
 export default {
-    title: 'useMemo'
+    title: 'useMemo and useCallback'
 }
 
 
@@ -80,7 +80,7 @@ export const SelectsWithMemo = () => {
         {id: 6, title: 'Hamburg', country: 'Germany'},
     ])
 
-    let russianCities = useMemo(()=>{
+    let russianCities = useMemo(() => {
         return cities.filter(el => el.country === 'Russia').map(el => ({title: el.title, value: el.id}))
     }, [cities]);
 
@@ -106,3 +106,29 @@ export const SelectsWithMemo = () => {
 
 }
 
+export const useCallbackExample = () => {
+    const [books, setBooks] = useState(['1', '2', '3'])
+    const [counter, setCounter] = useState(0)
+    const addBook = useCallback(() => {
+        setBooks([...books, books.length.toString()])
+    }, [books])
+
+    // const addBook = () => {
+    //     setBooks([...books, books.length.toString()])
+    // }
+
+        return (
+            <div>
+                <Books addBook={addBook}/>
+                <button onClick={() => setCounter(counter + 1)}>+</button>
+                {counter}
+            </div>
+        )
+    }
+
+    const Books = React.memo((props: { addBook: () => void }) => {
+        console.log('Books render')
+        return (
+            <div>Books</div>
+        )
+    })
