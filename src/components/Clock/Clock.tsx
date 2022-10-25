@@ -25,8 +25,8 @@ const Clock: React.FC<PropsType> = (props) => {
   const minutes = formatToTwoDigitsTime(date.getMinutes())
   const seconds = formatToTwoDigitsTime(date.getSeconds())
 
-  const hoursArrowRotateDegrees = (formatHoursTo12(date.getHours()) * 60 * 60 + date.getMinutes() * 60) / 120;
-  const minutesArrowRotateDegrees = date.getMinutes() * 6;
+  const hoursArrowRotateDegrees = (formatHoursTo12(date.getHours()) * 60 * 60 + date.getMinutes() * 60 + date.getSeconds()) / 120;
+  const minutesArrowRotateDegrees = (date.getMinutes() * 60 + date.getSeconds()) / 10;
   const secondsArrowRotateDegrees = date.getSeconds() * 6;
 
 
